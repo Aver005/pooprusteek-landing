@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
 import { SectionTitle } from './Features'
 
-// The real status labels the TUI cycles through in GOAL mode.
+// The real status labels the TUI cycles through in GOAL mode — verbatim in
+// every language. The explanatory log lines live in src/i18n/locales/*
+// (goal.logs), one entry per state, same order.
 const STATES = [
-  { badge: '[GOAL ON]', cls: 'text-warn border-warn/40 bg-warn/10', log: 'worker + evaluator armed, waiting for a goal', hold: 1500 },
-  { badge: '[WAITING FOR GOAL]', cls: 'text-warn border-warn/40 bg-warn/10', log: 'state the success criteria — it will be held to them', hold: 1500 },
-  { badge: '[GOAL iter#1]', cls: 'text-accent-soft border-accent/40 bg-accent/10', log: 'worker edits code, runs the suite, reports back', hold: 1700 },
-  { badge: '[EVALUATING]', cls: 'text-accent border-accent/40 bg-accent/10', log: 'a second agent judges the result against the goal', hold: 1700 },
-  { badge: '[GOAL iter#2]', cls: 'text-accent-soft border-accent/40 bg-accent/10', log: 'rejected — evaluator feeds concrete fixes back in', hold: 1700 },
-  { badge: '[EVALUATING]', cls: 'text-accent border-accent/40 bg-accent/10', log: 'sessions swap after repeated failures to escape dead ends', hold: 1700 },
-  { badge: '[GOAL DONE]', cls: 'text-ok border-ok/40 bg-ok/10', log: 'goal met — loop closed, hard-capped at 10 iterations', hold: 3600 },
+  { badge: '[GOAL ON]', cls: 'text-warn border-warn/40 bg-warn/10', hold: 1500 },
+  { badge: '[WAITING FOR GOAL]', cls: 'text-warn border-warn/40 bg-warn/10', hold: 1500 },
+  { badge: '[GOAL iter#1]', cls: 'text-accent-soft border-accent/40 bg-accent/10', hold: 1700 },
+  { badge: '[EVALUATING]', cls: 'text-accent border-accent/40 bg-accent/10', hold: 1700 },
+  { badge: '[GOAL iter#2]', cls: 'text-accent-soft border-accent/40 bg-accent/10', hold: 1700 },
+  { badge: '[EVALUATING]', cls: 'text-accent border-accent/40 bg-accent/10', hold: 1700 },
+  { badge: '[GOAL DONE]', cls: 'text-ok border-ok/40 bg-ok/10', hold: 3600 },
 ]
 
 export default function GoalLoop() {
+  const { t } = useTranslation()
+  const logs = t('goal.logs', { returnObjects: true })
   const reduced = useReducedMotion()
   const [i, setI] = useState(reduced ? STATES.length - 1 : 0)
 
@@ -32,9 +37,9 @@ export default function GoalLoop() {
     <section id="goal" className="border-y border-line bg-panel/40 px-4 py-24">
       <div className="mx-auto max-w-5xl">
         <SectionTitle
-          kicker="/goal mode"
-          title="It doesn't stop when it sounds done. It stops when it is."
-          sub="Two agents, one loop: a worker does the job, an evaluator refuses to be impressed. You watch the status bar."
+          kicker={t('goal.kicker')}
+          title={t('goal.title')}
+          sub={t('goal.sub')}
         />
 
         <div className="mt-14 flex flex-col items-center gap-8">
@@ -63,7 +68,7 @@ export default function GoalLoop() {
                 transition={{ duration: 0.25 }}
                 className="text-center text-sm text-dim"
               >
-                {s.log}
+                {logs[i]}
               </motion.p>
             </AnimatePresence>
           </div>

@@ -1,5 +1,7 @@
 import { motion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
 import { GITHUB_URL } from '../lib/anim'
+import { LANGS } from '../i18n'
 
 const LINKS = [
   { href: '#free', label: '/free' },
@@ -30,6 +32,7 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
+          <LangSwitch />
           <a
             href={GITHUB_URL}
             target="_blank"
@@ -41,5 +44,34 @@ export default function Nav() {
         </div>
       </div>
     </motion.nav>
+  )
+}
+
+function LangSwitch() {
+  const { i18n } = useTranslation()
+  return (
+    <div
+      role="group"
+      aria-label="Language"
+      className="mr-1 flex items-center overflow-hidden rounded border border-line text-xs"
+    >
+      {LANGS.map((l) => {
+        const active = i18n.resolvedLanguage === l.code
+        return (
+          <button
+            key={l.code}
+            onClick={() => i18n.changeLanguage(l.code)}
+            aria-pressed={active}
+            className={`px-2 py-1 transition-colors ${
+              active
+                ? 'bg-sel text-accent-soft'
+                : 'text-dim hover:text-accent-soft'
+            }`}
+          >
+            {l.label}
+          </button>
+        )
+      })}
+    </div>
   )
 }

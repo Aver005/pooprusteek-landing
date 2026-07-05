@@ -1,57 +1,30 @@
 import { motion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
 import { rise, stagger, viewportOnce } from '../lib/anim'
 
-const FEATURES = [
-  {
-    cmd: '/new · /chats',
-    title: 'Parallel conversations',
-    body: 'Every chat owns its own forked session and agent task. Background turns keep streaming while you type somewhere else — nothing ever collides.',
-  },
-  {
-    cmd: '/agent',
-    title: 'Sub-agents',
-    body: 'Spawn isolated workers — foreground for a clean answer, background for fire-and-forget. Only the conclusion comes back, not the noise.',
-  },
-  {
-    cmd: '/goal',
-    title: 'GOAL loop',
-    body: 'A worker writes, an evaluator judges. The loop iterates with concrete feedback until the goal actually passes — capped at 10 rounds, no infinite spin.',
-  },
-  {
-    cmd: '/mcp',
-    title: 'MCP native',
-    body: 'stdio, HTTP and SSE servers with OAuth. Auto-discovers configs from 8 sources — Claude Desktop, VS Code, Cursor, and friends.',
-  },
-  {
-    cmd: '/skills',
-    title: 'Markdown skills',
-    body: 'Reusable instruction sets injected into the system prompt on demand. Teach it your stack once, reuse it everywhere.',
-  },
-  {
-    cmd: '/providers · /models',
-    title: 'Bring any model',
-    body: 'DeepSeek web by default; Ollama, LM Studio, vLLM or any OpenAI-compatible endpoint, plus Gemini and Anthropic-compatible providers.',
-  },
-  {
-    cmd: 'bash · powershell',
-    title: 'Real shell, real PTY',
-    body: 'Foreground, background and interactive PTY jobs. /jobs and /ps to list and kill. Tool approvals with a whitelist for the ones you trust.',
-  },
-  {
-    cmd: '/rate · /retry',
-    title: 'Streaming under control',
-    body: 'Token-by-token SSE streaming with live t/s stats, rolling-window rate limits and configurable retries — down to infinite stubbornness.',
-  },
+// Real TUI slash commands — verbatim in every language. Titles/bodies live
+// in src/i18n/locales/* (features.cards), one entry per cmd, same order.
+const CMDS = [
+  '/new · /chats',
+  '/agent',
+  '/goal',
+  '/mcp',
+  '/skills',
+  '/providers · /models',
+  'bash · powershell',
+  '/rate · /retry',
 ]
 
 export default function Features() {
+  const { t } = useTranslation()
+  const cards = t('features.cards', { returnObjects: true })
   return (
     <section id="features" className="px-4 py-24">
       <div className="mx-auto max-w-6xl">
         <SectionTitle
-          kicker="capabilities"
-          title="Small binary. Senior engineer."
-          sub="«Работает как старший инженер: автономно, хирургически, без воды.» — the system prompt, and it means it."
+          kicker={t('features.kicker')}
+          title={t('features.title')}
+          sub={t('features.sub')}
         />
         <motion.div
           variants={stagger}
@@ -60,17 +33,21 @@ export default function Features() {
           viewport={viewportOnce}
           className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {FEATURES.map((f) => (
+          {CMDS.map((cmd, i) => (
             <motion.article
-              key={f.cmd}
+              key={cmd}
               variants={rise}
               whileHover={{ y: -6 }}
               className="group relative flex flex-col border border-line bg-panel p-5 transition-colors hover:border-accent"
             >
               <CornerGlyphs />
-              <p className="text-xs text-accent">{f.cmd}</p>
-              <h3 className="mt-2 text-base font-bold text-fg">{f.title}</h3>
-              <p className="mt-3 text-[13px] leading-6 text-dim">{f.body}</p>
+              <p className="text-xs text-accent">{cmd}</p>
+              <h3 className="mt-2 text-base font-bold text-fg">
+                {cards[i].title}
+              </h3>
+              <p className="mt-3 text-[13px] leading-6 text-dim">
+                {cards[i].body}
+              </p>
             </motion.article>
           ))}
         </motion.div>

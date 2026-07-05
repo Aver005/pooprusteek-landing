@@ -1,7 +1,9 @@
 import { motion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
 import { GITHUB_URL, rise, viewportOnce } from '../lib/anim'
 
 export default function Footer() {
+  const { t } = useTranslation()
   return (
     <footer className="px-4 pt-24 pb-16">
       <motion.div
@@ -13,11 +15,10 @@ export default function Footer() {
       >
         <p className="text-6xl">🧻</p>
         <h2 className="mt-6 text-2xl font-bold text-fg sm:text-4xl">
-          Your terminal. Your session. Your agent.
+          {t('footer.title')}
         </h2>
         <p className="mt-4 max-w-xl text-sm leading-7 text-dim">
-          Yes, it's really called PoopRusteek. The code is surgical anyway —
-          go read it.
+          {t('footer.blurb')}
         </p>
         <motion.a
           href={GITHUB_URL}
@@ -33,10 +34,7 @@ export default function Footer() {
 
       <div className="mx-auto mt-20 max-w-5xl border-t border-line pt-6">
         <div className="flex flex-col items-center justify-between gap-3 text-xs text-dim sm:flex-row">
-          <p>
-            PoopRusteek 🧻 · built with ratatui, tokio and questionable naming
-            decisions
-          </p>
+          <p>{t('footer.tagline')}</p>
           <p>
             <a
               href={GITHUB_URL}

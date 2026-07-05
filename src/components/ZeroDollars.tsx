@@ -1,27 +1,11 @@
 import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
 import { rise, stagger, viewportOnce } from '../lib/anim'
 
-const LEDGER = [
-  {
-    k: 'auth',
-    v: 'your own chat.deepseek.com session — cookie + userToken, stored in the OS keyring, encrypted at rest',
-  },
-  {
-    k: 'proof-of-work',
-    v: 'the SHA-3 challenge DeepSeek uses to gate its web API is solved locally, on your CPU',
-  },
-  {
-    k: 'api key',
-    v: 'none. there is nothing to leak, rotate, or top up',
-  },
-  {
-    k: 'telemetry',
-    v: 'none. your code goes to the model you chose and nowhere else',
-  },
-]
-
 export default function ZeroDollars() {
+  const { t } = useTranslation()
+  const ledger = t('zero.ledger', { returnObjects: true })
   return (
     <section id="free" className="border-y border-line bg-panel/40 px-4 py-24">
       <div className="mx-auto grid max-w-5xl items-center gap-12 lg:grid-cols-2">
@@ -33,15 +17,13 @@ export default function ZeroDollars() {
           className="min-w-0"
         >
           <p className="text-xs tracking-[0.3em] text-dim uppercase">
-            monthly bill
+            {t('zero.kicker')}
           </p>
           <p className="mt-4 text-7xl font-bold text-ok sm:text-8xl lg:text-9xl">
             $0<span className="text-5xl text-ok/60 sm:text-6xl">.00</span>
           </p>
           <p className="mt-4 text-sm leading-7 text-soft">
-            Not a trial. Not a free tier with a token ration. PoopRusteek
-            drives the same web chat you already use for free — it just does
-            it from your terminal, with tools.
+            {t('zero.blurb')}
           </p>
           <PowTicker />
         </motion.div>
@@ -53,7 +35,7 @@ export default function ZeroDollars() {
           viewport={viewportOnce}
           className="min-w-0 divide-y divide-line border border-line bg-panel-deep"
         >
-          {LEDGER.map((row) => (
+          {ledger.map((row) => (
             <motion.div
               key={row.k}
               variants={rise}
@@ -71,6 +53,7 @@ export default function ZeroDollars() {
 
 // Fake-but-honest PoW readout: cycles hex nonces like the real solver does.
 function PowTicker() {
+  const { t } = useTranslation()
   const reduced = useReducedMotion()
   const [nonce, setNonce] = useState(48213)
   useEffect(() => {
@@ -86,7 +69,7 @@ function PowTicker() {
     <p className="mt-8 truncate rounded border border-line bg-ink px-4 py-3 text-xs text-dim">
       <span className="text-warn">pow</span> sha3(nonce={nonce}) →{' '}
       <span className="text-accent-soft">000{hash}…</span>{' '}
-      <span className="text-ok">solved locally</span>
+      <span className="text-ok">{t('zero.powSolved')}</span>
     </p>
   )
 }

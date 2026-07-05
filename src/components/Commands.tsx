@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
 import { rise, viewportOnce } from '../lib/anim'
 
 const ROW_A = [
@@ -11,6 +12,7 @@ const ROW_B = [
 ]
 
 export default function Commands() {
+  const { t } = useTranslation()
   return (
     <section id="commands" className="overflow-hidden px-0 py-24">
       <motion.div
@@ -21,15 +23,13 @@ export default function Commands() {
         className="mx-auto max-w-3xl px-4 text-center"
       >
         <p className="text-xs tracking-[0.3em] text-dim uppercase">
-          <span className="text-accent">──</span> the surface area{' '}
+          <span className="text-accent">──</span> {t('commands.kicker')}{' '}
           <span className="text-accent">──</span>
         </p>
         <h2 className="mt-3 text-2xl font-bold text-fg sm:text-4xl">
-          30+ slash commands. Zero menus.
+          {t('commands.title')}
         </h2>
-        <p className="mt-4 text-sm leading-7 text-soft">
-          Everything is a command, exactly where your hands already are.
-        </p>
+        <p className="mt-4 text-sm leading-7 text-soft">{t('commands.sub')}</p>
       </motion.div>
 
       <div className="relative mt-14 flex flex-col gap-4">

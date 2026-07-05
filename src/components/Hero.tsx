@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
+import { Trans, useTranslation } from 'react-i18next'
 import Logo from './Logo'
 import TerminalDemo from './TerminalDemo'
 import { GITHUB_URL } from '../lib/anim'
@@ -7,6 +8,7 @@ import { GITHUB_URL } from '../lib/anim'
 const INSTALL_CMD = 'git clone https://github.com/Aver005/pooprusteek && cargo run'
 
 export default function Hero() {
+  const { t } = useTranslation()
   return (
     <header className="grid-bg relative overflow-hidden px-4 pt-24 pb-20 sm:pt-32">
       {/* soft accent glow behind the logo */}
@@ -22,8 +24,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="mb-6 rounded-full border border-line bg-panel px-4 py-1.5 text-xs text-soft"
         >
-          <span className="text-ok">●</span> free forever — it talks to
-          chat.deepseek.com, not to your wallet
+          <span className="text-ok">●</span> {t('hero.pill')}
         </motion.p>
 
         <Logo className="text-4xl sm:text-6xl lg:text-7xl" />
@@ -34,7 +35,7 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="mt-6 text-sm tracking-wide text-soft sm:text-base"
         >
-          Terminal coding agent · powered by DeepSeek web
+          {t('hero.tagline')}
         </motion.p>
 
         <motion.p
@@ -43,10 +44,10 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.25 }}
           className="mt-4 max-w-2xl text-sm leading-7 text-dim sm:text-base"
         >
-          A free, terminal-native alternative to Claude Code — written in Rust.
-          Parallel chats, background sub-agents, an iterative{' '}
-          <span className="text-warn">GOAL</span> loop, MCP servers and
-          markdown skills. No API key. No subscription. No fluff.
+          <Trans
+            i18nKey="hero.desc"
+            components={{ goal: <span className="text-warn" /> }}
+          />
         </motion.p>
 
         <motion.div
@@ -75,6 +76,7 @@ export default function Hero() {
 }
 
 function CopyCommand() {
+  const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
   const copy = async () => {
     try {
@@ -89,12 +91,12 @@ function CopyCommand() {
     <button
       onClick={copy}
       className="group flex min-w-0 items-center gap-3 overflow-hidden rounded-md border border-line bg-panel-deep px-4 py-3 text-left text-xs text-soft transition-colors hover:border-accent sm:text-sm"
-      title="Copy to clipboard"
+      title={t('hero.copyTitle')}
     >
       <span className="shrink-0 text-ok">❯</span>
       <span className="truncate">git clone Aver005/pooprusteek && cargo run</span>
       <span className="ml-auto shrink-0 text-dim transition-colors group-hover:text-accent-soft">
-        {copied ? <span className="text-ok">✓ copied</span> : '⧉'}
+        {copied ? <span className="text-ok">{t('hero.copied')}</span> : '⧉'}
       </span>
     </button>
   )
