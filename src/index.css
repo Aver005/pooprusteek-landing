@@ -72,6 +72,33 @@ body {
   color: var(--color-accent-soft);
 }
 
+/* Scrollbar in TUI colors — square, no rounding, like a terminal gutter */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+  border-left: 1px solid var(--color-line);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border: 2px solid var(--color-ink);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-dim);
+}
+::-webkit-scrollbar-corner {
+  background: var(--color-ink);
+}
+/* Firefox only — in Chromium scrollbar-color would override the styles above */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) var(--color-ink);
+  }
+}
+
 /* CRT atmosphere: scanlines + vignette, one fixed overlay above everything */
 .crt::before {
   content: '';

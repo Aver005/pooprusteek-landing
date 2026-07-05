@@ -82,7 +82,8 @@ bun run lint         # oxlint (no output = clean)
     duplicated in-render for the seamless loop; edge fade overlays.
   - `StatusBar.tsx` — fixed bottom replica of the TUI status bar; scroll
     progress via `useScroll` shown as `ctx:N%` + `| / - \` spinner.
-- `docs/hero.png` — README screenshot (committed).
+- `docs/hero.webp` — README screenshot (committed; 1440×1000 viewport shot,
+  lossless WebP via sharp).
 - `.shots/`, `.playwright-mcp/` — gitignored screenshot scratch.
 
 ## Verifying changes

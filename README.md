@@ -14,7 +14,7 @@ a free, terminal-native Rust coding agent with an unapologetic name.**
 [![Tailwind](https://img.shields.io/badge/Tailwind-v4-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Motion](https://img.shields.io/badge/Motion-12-FFF42B?logo=framer&logoColor=black)](https://motion.dev)
 
-<img src="docs/hero.png" alt="PoopRusteek landing — hero with animated logo and a live terminal demo ending in [GOAL DONE] · $0.00" width="800" />
+<img src="docs/hero.webp" alt="PoopRusteek landing — hero with animated logo and a live terminal demo ending in [GOAL DONE] · $0.00" width="800" />
 
 *Yes, the terminal actually types that, in a loop, forever. It's very committed.*
 
