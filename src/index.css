@@ -1,0 +1,119 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* Palette lifted verbatim from pooprusteek/src/tui/theme.rs */
+@theme {
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Consolas,
+    monospace;
+  --font-sans: var(--font-mono);
+
+  --color-ink: #0b0e19; /* THEME.bg          */
+  --color-panel: #111727; /* THEME.panel       */
+  --color-panel-deep: #0f1524; /* THEME.input_bg    */
+  --color-fg: #e2e8f0; /* THEME.fg          */
+  --color-accent: #60a5fa; /* THEME.accent      */
+  --color-accent-dim: #3b82f6; /* THEME.accent_dim  */
+  --color-accent-soft: #7dd3fc; /* THEME.accent_soft */
+  --color-line: #2a3854; /* THEME.border      */
+  --color-dim: #7888a4; /* THEME.text_dim    */
+  --color-soft: #94a3b8; /* THEME.text_soft   */
+  --color-err: #f38ba8; /* THEME.error       */
+  --color-ok: #a6e3a1; /* THEME.success     */
+  --color-warn: #f9e2af; /* THEME.warning     */
+  --color-sel: #222d48; /* THEME.selection   */
+  --color-user-msg: #1c2740; /* THEME.user_msg_bg */
+  --color-tool-msg: #262032; /* THEME.tool_msg_bg */
+
+  --animate-blink: blink 1.06s step-end infinite;
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-marquee-rev: marquee-rev 36s linear infinite;
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes marquee-rev {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-sel);
+  color: var(--color-accent-soft);
+}
+
+/* CRT atmosphere: scanlines + vignette, one fixed overlay above everything */
+.crt::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(8, 10, 18, 0.22) 3px,
+    transparent 4px
+  );
+}
+.crt::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 120% 90% at 50% 40%,
+    transparent 55%,
+    rgba(4, 6, 12, 0.55) 100%
+  );
+}
+
+/* Faint phosphor grid behind panels */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(42, 56, 84, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 56, 84, 0.16) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-marquee-rev {
+    animation: none;
+  }
+}
