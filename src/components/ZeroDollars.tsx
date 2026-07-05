@@ -39,10 +39,10 @@ export default function ZeroDollars() {
             <motion.div
               key={row.k}
               variants={rise}
-              className="grid grid-cols-[7.5rem_1fr] gap-4 p-5 sm:grid-cols-[9rem_1fr]"
+              className="grid grid-cols-[7.5rem_minmax(0,1fr)] gap-4 p-5 sm:grid-cols-[9rem_minmax(0,1fr)]"
             >
               <dt className="text-sm font-bold text-accent-soft">{row.k}</dt>
-              <dd className="text-sm leading-6 text-dim">{row.v}</dd>
+              <dd className="min-w-0 text-sm leading-6 wrap-break-word text-dim">{row.v}</dd>
             </motion.div>
           ))}
         </motion.dl>

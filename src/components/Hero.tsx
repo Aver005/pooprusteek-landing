@@ -27,7 +27,7 @@ export default function Hero() {
           <span className="text-ok">●</span> {t('hero.pill')}
         </motion.p>
 
-        <Logo className="text-4xl sm:text-6xl lg:text-7xl" />
+        <Logo className="text-4xl max-[350px]:text-3xl sm:text-6xl lg:text-7xl" />
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}

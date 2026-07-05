@@ -109,10 +109,10 @@ export default function TerminalDemo() {
           PoopRusteek 🧻 — ~/dev/that-one-project
         </span>
       </div>
-      <div className="h-[21rem] p-4 text-left text-[13px] leading-6 sm:text-sm">
+      <div className="h-76 overflow-hidden p-4 text-left text-[11px] leading-5 sm:h-84 sm:text-sm sm:leading-6">
         {visible.map(renderLine)}
       </div>
-      <div className="flex items-center justify-between gap-2 border-t border-line bg-panel px-4 py-1.5 text-[11px] text-dim">
+      <div className="relative flex items-center justify-between gap-2 border-t border-line bg-panel px-4 py-1.5 text-[11px] text-dim">
         <span className="truncate">
           deepseek · deepseek-chat{' '}
           <span className="text-warn">[GOAL:tests]</span> chats:3 agents:1

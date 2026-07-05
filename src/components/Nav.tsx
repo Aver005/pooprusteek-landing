@@ -19,8 +19,11 @@ export default function Nav() {
       className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/85 backdrop-blur"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-sm">
-        <a href="#top" className="font-bold text-fg">
-          PoopRusteek <span aria-hidden>🧻</span>
+        <a href="#top" className="font-bold whitespace-nowrap text-fg">
+          PoopRusteek{' '}
+          <span aria-hidden className="max-[350px]:hidden">
+            🧻
+          </span>
         </a>
         <div className="flex items-center gap-1 sm:gap-2">
           {LINKS.map((l) => (
@@ -37,9 +40,9 @@ export default function Nav() {
             href={GITHUB_URL}
             target="_blank"
             rel="noreferrer"
-            className="rounded border border-line px-3 py-1 text-xs text-accent-soft transition-colors hover:border-accent"
+            className="rounded border border-line px-3 py-1 text-xs whitespace-nowrap text-accent-soft transition-colors hover:border-accent max-[350px]:px-2"
           >
-            ★ GitHub
+            <span className="max-[350px]:hidden">★ </span>GitHub
           </a>
         </div>
       </div>
